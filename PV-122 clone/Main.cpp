@@ -119,11 +119,24 @@ public:
 		integer++;
 		return *this;
 	}
-	Fraction operator++(int)
+	Fraction operator++(int)  //Postfix increment
 	{
 		Fraction old = *this;   //Сохраняем текущее состояние объекта 
 		to_proper();
 		integer++;
+		return old;
+	}
+	Fraction& operator--()   //Prefix Decrement
+	{
+		to_proper();
+		integer--;
+		return *this;
+	}
+	Fraction& operator--(int)  //Postfix Decrement
+	{
+		Fraction old = *this;
+		to_proper;
+		integer--;
 		return old;
 	}
 
