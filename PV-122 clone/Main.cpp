@@ -91,8 +91,32 @@ public:
 	Fraction& operator*=(const Fraction other)
 	{
 		this->to_improper();
-		this->numerator = this->numerator * other.numerator;
-		this->denominator = this->denominator * other.denominator;
+		this->numerator *= other.numerator;
+		this->denominator *= other.denominator;
+		this->to_proper();
+		return *this;
+	}
+	Fraction& operator/=(const Fraction other)
+	{
+		this->to_improper();
+		this->numerator = (this->numerator * other.denominator) * (other.numerator * this->denominator);
+		this->denominator *= other.denominator;
+		this->to_proper();
+		return *this;
+	}
+	Fraction& operator+=(Fraction& other)
+	{
+		this->to_improper();
+		this->numerator = (this->numerator * other.denominator) + (other.numerator * this->denominator);
+		this->denominator *= other.denominator;
+		this->to_proper();
+		return *this;
+	}
+	Fraction& operator-=(Fraction& other)
+	{
+		this->to_improper();
+		this->numerator = (this->numerator * other.denominator) - (other.numerator * this->denominator);
+		this->denominator *= other.denominator;
 		this->to_proper();
 		return *this;
 	}
@@ -245,7 +269,13 @@ void main()
 	Fraction C = A * B;
 	cout << C << endl;*/
 	//cout << A + B << endl;
-
+	cout << A << "\t" << B << endl;
 	A *= B;
+	cout << A << endl;
+	A /= B;
+	cout << A << endl;
+	A += B;
+	cout << A << endl;
+	A -= B;
 	cout << A << endl;
 }
