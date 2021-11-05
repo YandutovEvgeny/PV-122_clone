@@ -1,4 +1,6 @@
 ﻿//Fraction - описываем простую дробь
+#pragma warning (disable:4326)
+#define _CRT_SECURE_NO_WARNINGS
 #include<iostream>
 using namespace std;
 using std::cin;
@@ -51,7 +53,7 @@ public:
 		this->denominator = 1;
 		cout << "DefaultConstructor:\t" << this << endl;
 	}
-	Fraction(int integer)
+	explicit Fraction(int integer)
 	{
 		//Single-argument constructor - Конструктор с одним параметром.
 		this->integer = integer;
@@ -135,9 +137,20 @@ public:
 	Fraction& operator--(int)  //Postfix Decrement
 	{
 		Fraction old = *this;
-		to_proper;
+		to_proper();
 		integer--;
 		return old;
+	}
+
+	//type-cast operators:
+	explicit operator int()const
+	{
+		return integer;
+	}
+	explicit operator double()const
+	{
+		
+		return integer + double(numerator) / denominator;
 	}
 
 	//				Methods:
@@ -349,6 +362,9 @@ bool operator<=(const Fraction& left, const Fraction& right)
 //#define OSTREAM_CHECK
 //#define ARITHMETICAL_OPERATORS_CHECK
 //#define COMPARISON_OPERATORS
+//#define ISTREAM_OPERATOR_CHECK
+//#define TYPE_CONVERSION_BASICS
+//#define CONVERSION_FROM_OTHER_TO_CLASS
 
 void main()
 {
@@ -384,16 +400,20 @@ void main()
 	//cout << A + B << endl;
 	/*A *= B;
 	cout << A << endl;*/
-	A /= B;
-	cout << A << endl;
+	//A /= B;
+	//cout << A << endl;
 	/*A += B;
 	cout << A << endl;
 	A -= B;
-	cout << A << endl;*/
+	cout << A << endl;
 	cout << ++A << endl;
 	A = B++;
 	cout << A << endl;
-	cout << B << endl;
+	cout << B << endl;*/
+	//cout << --A << endl;
+	A = B--;
+	cout << A << endl;
+	//cout << B << endl;
 #endif // ARITHMETICAL_OPERATORS_CHECK
 
 #ifdef COMPARISON_OPERATORS
@@ -405,8 +425,42 @@ void main()
 	cout << (A < B) << endl;
 #endif // COMPARISON_OPERATORS
 
+#ifdef ISTREAM_OPERATOR_CHECK
 	Fraction A;
-	cout << "Введите дробь: "; 
+	cout << "Введите дробь: ";
 	cin >> A;
 	cout << A << endl;
-}
+#endif // ISTREAM_OPERATOR_CHECK
+
+#ifdef TYPE_CONVERSION_BASICS
+	int a = 2;     //No conversion
+	double b = 3;  //Convertion from int to doube
+				   //           from less to more
+	int c = b;     //Convertion from double to int 
+				   //           from more to less without data loss
+	int d = 4.5;   //Conversion from double to int
+				   //           from more to less with data loss
+	cout << d << endl;
+#endif // TYPE_CONVERSION_BASICS
+#ifdef CONVERSION_FROM_OTHER_TO_CLASS
+
+	double a = 2;  //from int to double (from less to more)
+	Fraction A = (Fraction)5;  //C-like convertion from int to Fraction (From less to more)
+	cout << A << endl;
+	cout << "\n---------------------------\n";
+	Fraction B;      //Default constructor
+	cout << "\n---------------------------\n";
+	B = Fraction(8);           //Functional convertion from int to Fraction
+	cout << "\n---------------------------\n";
+	cout << B << endl;
+	Fraction C(12); //explicit - конструктор можно вызвать так, и нельзя вызвать так: Fraction C = 12
+	cout << C << endl;
+#endif // CONVERSION_FROM_OTHER_TO_CLASS
+
+	Fraction A(2, 3, 4);
+	int a = (int)A;
+	cout << a << endl;
+	cout << A << endl;
+	double b = (double)A;
+	cout << b << endl;
+} 
