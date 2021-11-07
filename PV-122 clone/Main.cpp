@@ -61,6 +61,14 @@ public:
 		this->denominator = 1;
 		cout << "SingleArgConstructor:" << this << endl;
 	}
+	Fraction(double integer)
+	{
+		this->integer = (int)integer;
+		this->numerator = (integer - (int)integer) * 100;
+		this->denominator = 100;
+		reduce();
+		cout << "DoubleSingleArgConstructor: " << this << endl;
+	}
 	Fraction(int numerator, int denominator)
 	{
 		this->integer = 0;
@@ -457,10 +465,13 @@ void main()
 	cout << C << endl;
 #endif // CONVERSION_FROM_OTHER_TO_CLASS
 
-	Fraction A(2, 3, 4);
+	/*Fraction A(2, 3, 4);
 	int a = (int)A;
 	cout << a << endl;
 	cout << A << endl;
 	double b = (double)A;
-	cout << b << endl;
+	cout << b << endl;*/
+	Fraction A = 2.75;
+	cout << A << endl;
+
 } 
