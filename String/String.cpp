@@ -1,46 +1,102 @@
 #include<iostream>
 using namespace std;
+using std::cin;
+using std::cout;
+using std::endl;
 
 class String
 {
-	char* str;
+	int size;   //Размер строки в Байтах
+	char* str;  //Адрес строки в динамической памяти
 public:
-	char get_str()const
+	const char* get_str()const
 	{
-		return *str;
+		return str;
 	}
-	void set_str(char* str)
+	//           Constructors:
+	String(int size = 80)
 	{
-		this->str = str;
+		this->size = size;
+		this->str = new char[size] {};
+		cout << "DefaultConstructor:\t" << this << endl;
 	}
-	
-	//              Constructors:
-	String()
+	String(const char* str)
 	{
-		str = nullptr;
-		cout << "DefaultConstructor: " << this << endl;
+		this->size = strlen(str) + 1;
+		this->str = new char[size] {};
+		for (int i = 0; i < size; i++)
+		{
+			this->str[i] = str[i];
+		}
+		cout << "Constructor:\t\t" << this << endl;
 	}
-	String(char* str)
-	{
-	   int length = strlen(str);
-	   this->str = new char[length + 1];
-	   for (int i = 0; i < length; i++)
-	   {
-		   this->str[i] = str[i];
-	   }
-	   this->str[length] = "\0";
+	//         The rule of three
+	String(const String& other)
+    {
+		//Deep copy
+		this->size = other.size;
+		this->str = new char[size] {};
+		for (int i = 0; i < size; i++)
+		{
+			this->str[i] = other.str[i];
+			cout << "CopyConstructor:\t" << this << endl;
+		}
 	}
 	~String()
 	{
 		delete[] this->str;
+		cout << "Destructor:\t" << this << endl;
 	}
+
+	//                Operators:
+	String& operator=(const String& other)
+	{
+		delete[] this->str;
+		this->size = other.size;
+		this->str = new char[size] {};
+		for (int i = 0; i < size; i++)
+		{
+			this->str[i] = other.str[i];
+			cout << "CopyAssignment:\t\t" << this << endl;
+		}
+		return *this;
+	}
+
+	void print()const
+	{
+		cout << "Size:\t" << size << endl;
+		cout << "Str:\t" << str << endl;
+ 	}
 };
+
+ostream& operator<<(ostream& os, const String& obj)
+{
+	return os << obj.get_str();
+}
+
+//#define CONSTRUCTORS_CHECK
 
 void main()
 {
 	setlocale(LC_ALL, "");
-	String str("Hello");
-	
-		
+#ifdef CONSTRUCTORS_CHECK
+	String str;   //Default constructor
+	str.print();
+
+	String str1 = "Hello";  //Single-argument constructor
+	//str1.print();
+	cout << str1 << endl;
+
+	String str2 = str1;   //Copy constructor
+	cout << str2 << endl;
+
+	String str3;
+	str3 = str2;         //Shallow copy - поверхностное копирование
+	cout << str3 << endl;
+#endif // CONSTRUCTORS_CHECK
+
+	String str1 = "Hello";
+	str1 = str1;
+	cout << str1 << endl;
 
 }
