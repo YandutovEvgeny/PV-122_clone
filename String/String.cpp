@@ -34,10 +34,12 @@ public:
 	}
 	String(const char* str):String(strlen(str) + 1)  //Делегируем выделение памяти конструктору по умолчанию
 	{
-		for (int i = 0; i < size; i++)
-		{
-			this->str[i] = str[i];
-		}
+		//for (int i = 0; i < size; i++)this->str[i] = str[i];
+		strcpy(this->str, str);
+		//strcpy - string copy
+		//strcpy(dst, src);
+		//dst(destination) - строка получатель, строка, в которую копируется содержимое
+		//src(source) - строка источник, строка из которой копируется содержимое
 		cout << "Constructor:\t\t" << this << endl;
 	}
 	//         The rule of three
@@ -103,7 +105,14 @@ public:
 String operator+(const String& left, const String& right)
 {
 	String result (left.get_size() + right.get_size() - 1);
-	for (int i = 0; i < left.get_size(); i++)
+	strcpy(result.get_str(), left.get_str());
+	strcat(result.get_str(), right.get_str());
+	//strcat - выполняет конкатенацию строк
+	//strcat(dst, src)
+	//dst - строка получатель
+	//src - строка источник
+	//В dst будет объединённая строка
+	/*for (int i = 0; i < left.get_size(); i++)
 	{
 		//result.get_str()[i] = left.get_str()[i];   
 		result[i] = left[i];   
@@ -112,7 +121,8 @@ String operator+(const String& left, const String& right)
 	{
 		//result.get_str()[i + left.get_size() - 1] = right.get_str()[i];
 		result[i + left.get_size() - 1] = right[i];
-	}
+	}*/
+
 	return result;
 }
 
@@ -165,7 +175,7 @@ cout << str1 << endl;*/
 	String str2 = "Hello";   //Single-argument constructor;
 	str2.print();
 	String str3("World");    //Single-argument constructor;
-	cout << str3 << endl;
+	str3.print();
 	String str4();    //Здесь НЕ создаётся объект, объявляется функция str4, которая ничего не принимает и возвращает объект класса String
 	//cout << str4 << endl;
 	String str5{};    //Явный вызов конструктора по умолчанию
