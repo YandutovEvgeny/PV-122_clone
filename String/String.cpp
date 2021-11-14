@@ -1,4 +1,4 @@
-#include<iostream>
+п»ї#include<iostream>
 #pragma warning(disable:4326)
 using namespace std;
 using std::cin;
@@ -12,8 +12,8 @@ String operator+(const String& left, const String& right);
 
 class String
 {
-	int size;   //Размер строки в Байтах
-	char* str;  //Адрес строки в динамической памяти
+	int size;   //Р Р°Р·РјРµСЂ СЃС‚СЂРѕРєРё РІ Р‘Р°Р№С‚Р°С…
+	char* str;  //РђРґСЂРµСЃ СЃС‚СЂРѕРєРё РІ РґРёРЅР°РјРёС‡РµСЃРєРѕР№ РїР°РјСЏС‚Рё
 public:
 	char* get_str()
 	{
@@ -151,7 +151,7 @@ void main()
 	cout << str2 << endl;
 
 	String str3;
-	str3 = str2;         //Shallow copy - поверхностное копирование
+	str3 = str2;         //Shallow copy - РїРѕРІРµСЂС…РЅРѕСЃС‚РЅРѕРµ РєРѕРїРёСЂРѕРІР°РЅРёРµ
 	cout << str3 << endl;
 #endif // CONSTRUCTORS_CHECK
 

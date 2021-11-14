@@ -1,4 +1,4 @@
-#include<iostream>
+﻿#include<iostream>
 using namespace std;
 
 class Matrix
@@ -43,6 +43,16 @@ public:
 		*this = other;
 		cout << "CopyConstructor:\t" << this << endl;
 	}
+	Matrix(Matrix&& other)
+	{
+		this->rows = other.rows;
+		this->cols = other.cols;
+		this->arr = other.arr;
+		cout << "MoveConstructor:\t" << this << endl;
+		other.arr = nullptr;
+		other.rows = 0;
+		other.cols = 0;
+	}
 	~Matrix()
 	{
 		for (int i = 0; i < rows; i++)
@@ -80,6 +90,16 @@ public:
 	{
 		return arr[i];
 	}
+	Matrix& operator=(Matrix&& other)
+	{
+		this->rows = other.rows;
+		this->cols = other.cols;
+		this->arr = other.arr;
+		other.arr = nullptr;
+		other.cols = 0;
+		other.rows = 0;
+		return *this;
+	}
 
 	//            Methods:
 	void print()const
@@ -94,6 +114,26 @@ public:
 		}
 	}
 };
+
+Matrix operator+(const Matrix& left, const Matrix& right)
+{
+	Matrix result = left + right;
+	for (int i = 0; i < left.get_cols(); i++)
+	{
+		for (int j = 0; j < left.get_rows(); j++)
+		{
+			result[i][j] = left[i][j];
+		}
+	}
+	for (int i = 0; i < right.get_cols(); i++)
+	{
+		for (int j = 0; j < right.get_rows(); j++)
+		{
+			result[i + left.get_cols()][j + left.get_rows()] = right[i][j];
+		}
+	}
+	return result;
+}
 
 void main()
 {
@@ -111,4 +151,7 @@ void main()
 	Matrix B;
 	B = A;       //Copy assignment
 	B.print();
+	Matrix C;
+	C = A + B;
+	C.print();
 }
