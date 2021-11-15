@@ -27,10 +27,10 @@ public:
 		}
 		cout << "Constructor:\t" << this << endl;
 	}
-	Matrix(int n):Matrix(1, n)
+	/*Matrix(int n):Matrix(1, n)
 	{
 	
-	}
+	}*/
 	Matrix(const Matrix& other)//:Matrix(other.rows, other.cols)
 	{
 		/*for (int i = 0; i < rows; i++)
@@ -117,19 +117,56 @@ public:
 
 Matrix operator+(const Matrix& left, const Matrix& right)
 {
-	Matrix result = left + right;
-	for (int i = 0; i < left.get_cols(); i++)
+	/*Matrix result = (left.get_rows() * left.get_cols()) + (right.get_rows() * right.get_cols());
+	for (int i = 0; i < left.get_rows(); i++)
 	{
-		for (int j = 0; j < left.get_rows(); j++)
+		for (int j = 0; j < left.get_cols(); j++)
 		{
 			result[i][j] = left[i][j];
 		}
+		cout << endl;
 	}
-	for (int i = 0; i < right.get_cols(); i++)
+	for (int i = 0; i < right.get_rows(); i++)
 	{
-		for (int j = 0; j < right.get_rows(); j++)
+		for (int j = 0; j < right.get_cols(); j++)
 		{
-			result[i + left.get_cols()][j + left.get_rows()] = right[i][j];
+			result[i + left.get_rows()][j + left.get_cols()] = right[i][j];
+		}
+		cout << endl;
+	}
+	return result;*/
+	Matrix result(right.get_rows(), right.get_cols());
+	for (int i = 0; i < right.get_rows(); i++)
+	{
+		for (int j = 0; j < right.get_cols(); j++)
+		{
+			result[i][j] = right[i][j] + left[i][j];
+		}
+	}
+	return result;
+}
+
+Matrix operator-(const Matrix& left, const Matrix& right)
+{
+	Matrix result(left.get_rows(), left.get_cols());
+	for (int i = 0; i < left.get_rows(); i++)
+	{
+		for (int j = 0; j < left.get_cols(); j++)
+		{
+			result[i][j] = left[i][j] - right[i][j];
+		}
+	}
+	return result;
+}
+
+Matrix operator*(const Matrix& left, const Matrix& right)
+{
+	Matrix result(left.get_rows(), left.get_cols());
+	for (int i = 0; i < left.get_rows(); i++)
+	{
+		for (int j = 0; j < left.get_cols(); j++)
+		{
+			result[i][j] = left[i][j] * right[i][j];
 		}
 	}
 	return result;
@@ -154,4 +191,10 @@ void main()
 	Matrix C;
 	C = A + B;
 	C.print();
+	Matrix D;
+	D = C - B;
+	D.print();
+	Matrix E;
+	E = D * A;
+	E.print();
 }
