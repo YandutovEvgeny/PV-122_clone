@@ -1,4 +1,4 @@
-#pragma warning(disable:4326)
+п»ї#pragma warning(disable:4326)
 #include<iostream>
 //using namespace std;
 using std::cin;
@@ -8,14 +8,14 @@ using std::endl;
 #define delimiter "\n----------------------\n"
 
 /////////////////////////////////////////////////////////////////////////////////
-////////////////////////      ОБЪЯВЛЕНИЕ КЛАССА - CLASS DECLARATION     /////////
+////////////////////////      РћР‘РЄРЇР’Р›Р•РќРР• РљР›РђРЎРЎРђ - CLASS DECLARATION     /////////
 class String;
 String operator+(const String& left, const String& right);
 
 class String
 {
-	int size;   //Размер строки в Байтах
-	char* str;  //Адрес строки в динамической памяти
+	int size;   //Р Р°Р·РјРµСЂ СЃС‚СЂРѕРєРё РІ Р‘Р°Р№С‚Р°С…
+	char* str;  //РђРґСЂРµСЃ СЃС‚СЂРѕРєРё РІ РґРёРЅР°РјРёС‡РµСЃРєРѕР№ РїР°РјСЏС‚Рё
 public:
 	char* get_str();
 	const char* get_str()const;
@@ -38,12 +38,12 @@ public:
 	
 	void print()const;
 };
-/////////////      КОНЕЦ ОБЪЯВЛЕНИЯ КЛАССА - CLASS DECLARATION END     //////////
+/////////////      РљРћРќР•Р¦ РћР‘РЄРЇР’Р›Р•РќРРЇ РљР›РђРЎРЎРђ - CLASS DECLARATION END     //////////
 /////////////////////////////////////////////////////////////////////////////////
 
 
 /////////////////////////////////////////////////////////////////////////////////
-////////////////////////      ОПРЕДЕЛЕНИЕ КЛАССА - CLASS DEFINITION     /////////
+////////////////////////      РћРџР Р•Р”Р•Р›Р•РќРР• РљР›РђРЎРЎРђ - CLASS DEFINITION     /////////
 char* String::get_str()
 {
 	return str;
@@ -61,7 +61,7 @@ String::String(int size) :size(size), str(new char[size] {})
 {
 	cout << "DefaultConstructor:\t" << this << endl;
 }
-String::String(const char* str) :String(strlen(str) + 1)  //Делегируем выделение памяти конструктору по умолчанию
+String::String(const char* str) :String(strlen(str) + 1)  //Р”РµР»РµРіРёСЂСѓРµРј РІС‹РґРµР»РµРЅРёРµ РїР°РјСЏС‚Рё РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂСѓ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
 {
 	for (int i = 0; i < size; i++)
 	{
@@ -128,7 +128,7 @@ void String::print()const
 	cout << "Str:\t" << str << endl;
 }
 
-//:: - Global scope (Глобальное пространство имён)
+//:: - Global scope (Р“Р»РѕР±Р°Р»СЊРЅРѕРµ РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІРѕ РёРјС‘РЅ)
 ::String operator+(const String& left, const String& right)
 {
 	String result (left.get_size() + right.get_size() - 1);
@@ -150,7 +150,7 @@ std::ostream& operator<<(std::ostream& os, const String& obj)
 	return os << obj.get_str();
 }
 
-///////////////		КОНЕЦ ОПРЕДЕЛЕНИЯ КЛАССА - CLASS DEFINITION END		////////
+///////////////		РљРћРќР•Р¦ РћРџР Р•Р”Р•Р›Р•РќРРЇ РљР›РђРЎРЎРђ - CLASS DEFINITION END		////////
 ////////////////////////////////////////////////////////////////////////////////
 
 //#define CONSTRUCTORS_CHECK
@@ -171,7 +171,7 @@ void main()
 	cout << str2 << endl;
 
 	String str3;
-	str3 = str2;         //Shallow copy - поверхностное копирование
+	str3 = str2;         //Shallow copy - РїРѕРІРµСЂС…РЅРѕСЃС‚РЅРѕРµ РєРѕРїРёСЂРѕРІР°РЅРёРµ
 	cout << str3 << endl;
 #endif // CONSTRUCTORS_CHECK
 
@@ -198,11 +198,11 @@ cout << str1 << endl;*/
 	str2.print();
 	String str3("World");    //Single-argument constructor;
 	cout << str3 << endl;
-	String str4();    //Здесь НЕ создаётся объект, объявляется функция str4, которая ничего не принимает и возвращает объект класса String
+	String str4();    //Р—РґРµСЃСЊ РќР• СЃРѕР·РґР°С‘С‚СЃСЏ РѕР±СЉРµРєС‚, РѕР±СЉСЏРІР»СЏРµС‚СЃСЏ С„СѓРЅРєС†РёСЏ str4, РєРѕС‚РѕСЂР°СЏ РЅРёС‡РµРіРѕ РЅРµ РїСЂРёРЅРёРјР°РµС‚ Рё РІРѕР·РІСЂР°С‰Р°РµС‚ РѕР±СЉРµРєС‚ РєР»Р°СЃСЃР° String
 	//cout << str4 << endl;
-	String str5{};    //Явный вызов конструктора по умолчанию
+	String str5{};    //РЇРІРЅС‹Р№ РІС‹Р·РѕРІ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР° РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
 	cout << str5 << endl;
-	String str6{ "Параметры в конструктор можно передавать в фигурных скобках" };
+	String str6{ "РџР°СЂР°РјРµС‚СЂС‹ РІ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РјРѕР¶РЅРѕ РїРµСЂРµРґР°РІР°С‚СЊ РІ С„РёРіСѓСЂРЅС‹С… СЃРєРѕР±РєР°С…" };
 	cout << str6 << endl;
 	String str7 = str6;   
 	cout << str7 << endl;
